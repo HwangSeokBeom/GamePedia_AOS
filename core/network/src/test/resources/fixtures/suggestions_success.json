@@ -1,0 +1,25 @@
+{
+  "success": true,
+  "data": {
+    "suggestions": [
+      {
+        "id": 4001,
+        "name": "Suggestion Case",
+        "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co1abc.jpg",
+        "rating": 88.5
+      },
+      {
+        "id": 4002,
+        "name": "Suggestion Case Deluxe",
+        "coverUrl": null,
+        "rating": 70
+      }
+    ],
+    "meta": {
+      "originalQuery": "suggestion case",
+      "normalizedQuery": "suggestion case",
+      "effectiveQuery": "suggestion case",
+      "resultCount": 2
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "success": false,
+  "error": {
+    "code": "INVALID_SEARCH_QUERY",
+    "message": "검색어를 확인해 주세요.",
+    "details": [
+      { "field": "q", "message": "q is required and must be 1-100 characters." }
+    ]
+  }
+}

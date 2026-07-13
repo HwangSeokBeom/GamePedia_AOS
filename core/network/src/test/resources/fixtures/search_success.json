@@ -1,0 +1,72 @@
+{
+  "success": true,
+  "data": {
+    "query": "contract quest",
+    "games": [
+      {
+        "id": 1001,
+        "name": "Contract Quest",
+        "summary": "A game used only by contract tests.",
+        "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co1abc.jpg",
+        "genres": ["Adventure"],
+        "platforms": ["PC (Microsoft Windows)"],
+        "rating": 88.5,
+        "aggregatedRating": null,
+        "totalRating": 88.5,
+        "releaseDate": 1700000000
+      },
+      {
+        "id": 1002,
+        "name": null,
+        "summary": null,
+        "coverUrl": null,
+        "genres": [],
+        "platforms": [],
+        "rating": null,
+        "aggregatedRating": null,
+        "totalRating": null,
+        "releaseDate": null
+      }
+    ],
+    "results": [
+      {
+        "id": 1001,
+        "name": "Contract Quest",
+        "summary": "A game used only by contract tests.",
+        "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co1abc.jpg",
+        "genres": ["Adventure"],
+        "platforms": ["PC (Microsoft Windows)"],
+        "rating": 88.5,
+        "aggregatedRating": null,
+        "totalRating": 88.5,
+        "releaseDate": 1700000000
+      },
+      {
+        "id": 1002,
+        "name": null,
+        "summary": null,
+        "coverUrl": null,
+        "genres": [],
+        "platforms": [],
+        "rating": null,
+        "aggregatedRating": null,
+        "totalRating": null,
+        "releaseDate": null
+      }
+    ],
+    "suggestions": [
+      {
+        "id": 1001,
+        "name": "Contract Quest",
+        "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co1abc.jpg",
+        "rating": 88.5
+      }
+    ],
+    "meta": {
+      "originalQuery": "contract quest",
+      "normalizedQuery": "contract quest",
+      "effectiveQuery": "contract quest",
+      "resultCount": 2
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "success": false,
+  "error": {
+    "code": "IGDB_RATE_LIMITED",
+    "message": "잠시 후 다시 시도해 주세요."
+  }
+}

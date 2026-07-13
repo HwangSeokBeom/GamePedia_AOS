@@ -1,0 +1,7 @@
+{
+  "success": false,
+  "error": {
+    "code": "IGDB_UPSTREAM_ERROR",
+    "message": "게임 정보 제공자에 연결할 수 없습니다."
+  }
+}

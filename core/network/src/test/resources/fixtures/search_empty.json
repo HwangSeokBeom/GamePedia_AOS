@@ -1,0 +1,15 @@
+{
+  "success": true,
+  "data": {
+    "query": "empty result case",
+    "games": [],
+    "results": [],
+    "suggestions": [],
+    "meta": {
+      "originalQuery": "empty result case",
+      "normalizedQuery": "empty result case",
+      "effectiveQuery": "empty result case",
+      "resultCount": 0
+    }
+  }
+}
