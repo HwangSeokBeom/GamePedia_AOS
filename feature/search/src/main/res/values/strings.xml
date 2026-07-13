@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search_title">Search</string>
+    <string name="search_placeholder">Search games</string>
+    <string name="search_field_description">Search games input field</string>
+    <string name="search_action_clear">Clear search</string>
+    <string name="search_action_retry">Retry</string>
+    <string name="search_loading">Searching…</string>
+    <string name="search_suggestions_loading">Loading suggestions…</string>
+    <string name="search_suggestions_heading">Suggestions</string>
+    <string name="search_idle_title">Find your next game</string>
+    <string name="search_idle_body">Search the GamePedia catalog by title.</string>
+    <string name="search_empty_title">No results</string>
+    <string name="search_empty_body">Nothing matched “%1$s”. Try a different title.</string>
+    <string name="search_query_too_long">Search terms are limited to 100 characters.</string>
+    <string name="search_filter_all">All genres</string>
+    <string name="search_result_count">%1$d results</string>
+    <string name="search_cover_description">Cover art for %1$s</string>
+    <string name="search_unnamed_game">Untitled game</string>
+    <string name="search_rating_description">Rating %1$s out of 100</string>
+
+    <string name="search_error_invalid_query">That search can’t be processed. Try different keywords.</string>
+    <string name="search_error_rate_limited">Search is busy right now. Please try again in a moment.</string>
+    <string name="search_error_provider_unavailable">Search is temporarily unavailable. Please try again.</string>
+    <string name="search_error_server">Something went wrong on our side. Please try again later.</string>
+    <string name="search_error_timeout">The search took too long. Check your connection and retry.</string>
+    <string name="search_error_offline">You’re offline. Reconnect and try again.</string>
+    <string name="search_error_malformed">We couldn’t read the search results. Please retry.</string>
+    <string name="search_error_unexpected">Something unexpected happened. Please try again later.</string>
+</resources>
