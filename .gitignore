@@ -1,0 +1,29 @@
+# Gradle
+.gradle/
+build/
+**/build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Local configuration (never commit)
+local.properties
+*.keystore
+*.jks
+keystore.properties
+google-services.json
+firebase-credentials*.json
+secrets.properties
+
+# IDE
+.idea/
+*.iml
+.DS_Store
+captures/
+.externalNativeBuild/
+.cxx/
+
+# Kotlin
+.kotlin/
+
+# Logs / reports
+*.log
+*.hprof
