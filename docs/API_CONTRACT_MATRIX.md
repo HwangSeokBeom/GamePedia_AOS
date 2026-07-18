@@ -1,4 +1,13 @@
-# API Contract Matrix — Trustworthy Search
+# API Contract Matrix
+
+## Slices
+
+| Slice | Contract source | Matrix |
+|---|---|---|
+| Trustworthy Search | `openapi/cross-platform.openapi.json` @ `8790a13` | below |
+| Authentication / Session | backend source @ `dev` merge `28a113e` (atomic rotation fix `7c9f88f`; no OpenAPI auth section yet — R-11) | `docs/AUTH_CONTRACT.md` |
+
+# Trustworthy Search
 
 **Backend source of truth:** `GamePediaCoreServer` commit `8790a13`
 (`feat(search): trustworthy search contract slice — OpenAPI 3.1, HTTP contract

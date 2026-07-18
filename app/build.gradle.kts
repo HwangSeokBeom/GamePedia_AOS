@@ -45,8 +45,11 @@ dependencies {
     implementation(project(":core:common"))
     implementation(project(":core:model"))
     implementation(project(":core:network"))
+    implementation(project(":core:storage"))
+    implementation(project(":core:auth"))
     implementation(project(":core:designsystem"))
     implementation(project(":feature:search"))
+    implementation(project(":feature:auth"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.activity.compose)

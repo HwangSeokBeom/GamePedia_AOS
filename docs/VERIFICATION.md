@@ -1,3 +1,59 @@
+# Verification — Auth/Session foundation (2026-07-18, branch feat/auth-session-foundation)
+
+## Commands run and results
+
+| Command | Result |
+|---|---|
+| `./gradlew assemble` (debug + unsigned release, all 9 modules) | ✅ BUILD SUCCESSFUL |
+| `./gradlew test` (full JVM suite) | ✅ 210 test executions, 0 failures |
+| `./gradlew :core:auth:testDebugUnitTest` (24 tests) | ✅ 24/24 |
+| Auth test classes rerun ×20 (fresh `--rerun` each) | ✅ 20/20 runs passed |
+| `AuthRaceStressTest` race scenarios | ✅ 50 iterations per scenario per run → 1000+ executions across reruns, 0 failures |
+| `./gradlew lint` | ✅ no errors |
+| `./gradlew connectedDebugAndroidTest` (Pixel_8, Android 16) | ✅ 6/6, 0 failed |
+| `git diff --check` | ✅ clean |
+
+## Sensitive log scan
+
+No logging interceptors anywhere (sources + version catalog). The only `Log`
+calls are the two diagnostics default sinks (privacy-reviewed field lists). No
+credential string interpolation in main sources. Redacted `toString()` on every
+credential-carrying type, pinned by `AuthPrivacyTest`.
+
+## Emulator runtime smoke (Pixel_8)
+
+- App boots with the new `AppContainer` (SecureSessionStorage/Keystore
+  initialization on device) — no crashes in logcat.
+- Search → account action → Auth screen navigation works; back returns to Search.
+- Login/Signup toggle, field validation (submit disabled until valid), masked
+  password render correctly.
+- Real login attempt against the staging host: request timed out at the 15 s
+  call timeout (host unreachable from this network, confirmed at HTTP level via
+  curl 000) and rendered the **retryable Timeout error** with the form
+  re-enabled — transport failures do not fake auth rejections.
+- Google button surfaces the "not available in this build" boundary message.
+
+## Issues found and fixed during verification
+
+- Kotlin nests block comments: a KDoc containing `` `/auth/*` `` swallowed the
+  rest of `SessionAuth.kt`. Comment reworded; repo scanned for other instances.
+- `AuthDiagnostics`' default `android.util.Log` sink crashed JVM tests that did
+  not replace the sink → no-op sink in test harness + `returnDefaultValues`.
+- `TestScope.backgroundScope` tears down cancelled children without running
+  their catch blocks and drops post-cancel launches → tests use an independent
+  `SupervisorJob + StandardTestDispatcher(testScheduler)` repository scope
+  (see `repositoryScope()` in AuthTestSupport).
+
+## Not verified (blocked)
+
+- Live login/signup/refresh against a reachable backend (staging and production
+  hosts unreachable from the dev network on 2026-07-18 — R-12). MockWebServer
+  covers the HTTP contract shape; the on-device attempt exercised the error path
+  only.
+- Real Google Sign-In (no OAuth client IDs exist — R-10).
+- Token storage across process death on a physical device (Keystore behavior
+  verified on emulator only, via the smoke run's storage initialization).
+
 # Verification — Trustworthy Search slice
 
 Date: 2026-07-13. Machine: macOS (Darwin 25.4.0), JDK 17.0.19 (Homebrew), Android

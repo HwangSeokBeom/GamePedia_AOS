@@ -4,6 +4,47 @@ Format: newest first. Each decision records context, choice, and consequences.
 
 ---
 
+## D-0008 — Commit-on-race for completed refresh rotations (2026-07-18)
+
+**Context:** `POST /auth/refresh` revokes the submitted refresh token atomically
+with issuing the new pair. If a response has already arrived when the last waiter
+cancels (or when a supersession's cancel loses the race to the response
+continuation), discarding the result would leave the client holding a token the
+server has already revoked.
+
+**Decision:** A refresh whose response arrived and whose commit passes the
+identity + generation checks persists even if its waiters are gone. Supersession
+(login/signup/google/logout/deletion) still wins in every ordering — it claims the
+flight's completion under the lock, so a late result cannot commit past it.
+
+**Consequences:** Guarantee "last waiter cancellation cancels provider work"
+applies to in-flight requests, not to already-delivered responses. Pinned by
+`AuthRefreshConcurrencyTest` and `AuthRaceStressTest`.
+
+## D-0007 — Client separation instead of authenticator guards (2026-07-18)
+
+**Context:** OkHttp-based auth commonly fails via recursive refresh (the refresh
+call itself gets a 401 and re-enters the authenticator).
+
+**Decision:** Two clients: the plain client serves all credential `/auth`
+endpoints (no Authorization, no authenticator); the authenticated client (Bearer
+interceptor + `SessionAuthenticator`) serves authenticated endpoints only.
+Non-recursion is structural rather than conditional logic inside the
+authenticator. Retries are bounded via the `priorResponse` chain (max 1 per token
+state).
+
+## D-0006 — Keystore AES-GCM over SharedPreferences for tokens (2026-07-18)
+
+**Context:** Jetpack `security-crypto` (EncryptedSharedPreferences) is deprecated;
+tokens need at-rest protection plus atomic pair updates.
+
+**Decision:** `core/storage` implements `SecureSessionStorage`: AES-256-GCM with a
+non-exportable AndroidKeyStore key; the whole token pair is one encrypted record
+under one preference key written with synchronous `commit()`, so readers can never
+observe a half-rotated pair. Undecryptable records (e.g. Keystore invalidation)
+degrade to "logged out", never to a crash. Deterministic `InMemoryTokenStore` /
+`InMemoryUserSessionStore` back the tests.
+
 ## D-0005 — API base URLs per environment (2026-07-13)
 
 **Context:** The backend OpenAPI intentionally publishes no real hosts; the iOS client

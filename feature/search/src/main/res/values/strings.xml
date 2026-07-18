@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="search_title">Search</string>
+    <string name="search_account_action">Account</string>
     <string name="search_placeholder">Search games</string>
     <string name="search_field_description">Search games input field</string>
     <string name="search_action_clear">Clear search</string>

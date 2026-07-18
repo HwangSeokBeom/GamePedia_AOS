@@ -16,6 +16,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -68,7 +69,10 @@ object SearchScreenTestTags {
 }
 
 @Composable
-fun SearchScreen(viewModel: SearchViewModel) {
+fun SearchScreen(
+    viewModel: SearchViewModel,
+    onAccountClick: (() -> Unit)? = null,
+) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     BackHandler(enabled = state.suggestions != SuggestionsUiState.Hidden) {
@@ -83,6 +87,7 @@ fun SearchScreen(viewModel: SearchViewModel) {
         onRetry = viewModel::onRetry,
         onSuggestionSelected = viewModel::onSuggestionSelected,
         onGenreFilterSelected = viewModel::onGenreFilterSelected,
+        onAccountClick = onAccountClick,
     )
 }
 
@@ -97,16 +102,34 @@ fun SearchScreenContent(
     onSuggestionSelected: (String) -> Unit,
     onGenreFilterSelected: (String?) -> Unit,
     modifier: Modifier = Modifier,
+    onAccountClick: (() -> Unit)? = null,
 ) {
     Scaffold(
         modifier = modifier.fillMaxSize(),
         topBar = {
-            TopAppBar(title = {
-                Text(
-                    text = stringResource(R.string.search_title),
-                    modifier = Modifier.semantics { heading() },
-                )
-            })
+            TopAppBar(
+                title = {
+                    Text(
+                        text = stringResource(R.string.search_title),
+                        modifier = Modifier.semantics { heading() },
+                    )
+                },
+                actions = {
+                    // App-provided navigation hook (kept optional so this feature
+                    // never depends on the auth feature). Null renders nothing.
+                    if (onAccountClick != null) {
+                        IconButton(
+                            onClick = onAccountClick,
+                            modifier = Modifier.size(48.dp),
+                        ) {
+                            Icon(
+                                Icons.Filled.AccountCircle,
+                                contentDescription = stringResource(R.string.search_account_action),
+                            )
+                        }
+                    }
+                },
+            )
         },
     ) { padding ->
         Column(
