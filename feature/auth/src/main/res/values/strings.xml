@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="auth_title">Account</string>
+    <string name="auth_mode_login">Log in</string>
+    <string name="auth_mode_signup">Sign up</string>
+    <string name="auth_email_label">Email</string>
+    <string name="auth_password_label">Password</string>
+    <string name="auth_nickname_label">Nickname</string>
+    <string name="auth_submit_login">Log in</string>
+    <string name="auth_submit_signup">Create account</string>
+    <string name="auth_google_button">Continue with Google</string>
+    <string name="auth_google_not_configured">Google sign-in isn’t available in this build yet.</string>
+    <string name="auth_logout">Log out</string>
+    <string name="auth_signed_in_as">Signed in as %1$s</string>
+    <string name="auth_submitting">Signing in…</string>
+    <string name="auth_back">Back</string>
+
+    <string name="auth_error_invalid_credentials">Email or password is incorrect.</string>
+    <string name="auth_error_email_in_use">An account with this email already exists.</string>
+    <string name="auth_error_nickname_exists">That nickname is already taken.</string>
+    <string name="auth_error_validation">Please check your input and try again.</string>
+    <string name="auth_error_session_expired">Your session has expired. Please log in again.</string>
+    <string name="auth_error_account_unavailable">This account isn’t available.</string>
+    <string name="auth_error_social_conflict">This account is already linked to another sign-in method.</string>
+    <string name="auth_error_google_rejected">This Google account can’t be used to sign in.</string>
+    <string name="auth_error_server">Something went wrong on our side. Please try again later.</string>
+    <string name="auth_error_timeout">The request took too long. Check your connection and retry.</string>
+    <string name="auth_error_offline">You’re offline. Reconnect and try again.</string>
+    <string name="auth_error_malformed">We couldn’t read the server response. Please retry.</string>
+    <string name="auth_error_unexpected">Something unexpected happened. Please try again.</string>
+</resources>

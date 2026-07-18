@@ -4,7 +4,18 @@ Native Android client for GamePedia, built for cross-platform parity with iOS 2.
 
 ## Status
 
-Early development. The first vertical slice is **Trustworthy Search** (`GET /games/search`, `GET /games/suggestions`).
+Early development.
+
+- **Trustworthy Search** — implemented (`GET /games/search`, `GET /games/suggestions`).
+- **Authentication / session foundation** — implemented on `feat/auth-session-foundation`:
+  email login, signup, Google-login boundary (SDK/OAuth config pending), logout,
+  account-deletion boundary, Keystore-backed token storage, and a
+  concurrency-safe single-flight refresh coordinator with session-generation
+  supersession (parity with iOS 2.0's merged refresh-concurrency guarantees).
+  See `docs/AUTH_ARCHITECTURE.md`, `docs/AUTH_CONTRACT.md`,
+  `docs/AUTH_TEST_MATRIX.md`. Runtime login against a live backend and real
+  Google Sign-In remain unverified (backend hosts unreachable from the dev
+  network; OAuth client IDs not yet provisioned).
 
 ## Stack
 
@@ -33,8 +44,12 @@ docs/                 Architecture, contracts, decisions, verification
 
 ## Backend contract
 
-Source of truth: `GamePediaCoreServer` commit `8790a13`
-(`openapi/cross-platform.openapi.json`, `docs/TRUSTWORTHY_SEARCH_ANDROID_CONTRACT.md`).
+- Trustworthy Search: `GamePediaCoreServer` commit `8790a13`
+  (`openapi/cross-platform.openapi.json`, `docs/TRUSTWORTHY_SEARCH_ANDROID_CONTRACT.md`).
+- Authentication / Session: `GamePediaCoreServer` `dev` merge `28a113e`
+  (includes atomic refresh-token rotation fix `7c9f88f`); see
+  `docs/AUTH_CONTRACT.md`.
+
 See `docs/API_CONTRACT_MATRIX.md`.
 
 ## Building

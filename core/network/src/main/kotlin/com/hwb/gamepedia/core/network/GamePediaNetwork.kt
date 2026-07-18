@@ -50,15 +50,47 @@ object GamePediaNetwork {
     fun createSearchApi(
         baseUrl: String = defaultBaseUrl(),
         client: OkHttpClient = createOkHttpClient(),
-    ): SearchApi {
+    ): SearchApi = createRetrofit(baseUrl, client).create(SearchApi::class.java)
+
+    fun createFailureMapper(): SearchFailureMapper = SearchFailureMapper(json)
+
+    /**
+     * Credential endpoints ride the PLAIN client: no Authorization interceptor, no
+     * authenticator. The refresh endpoint therefore can never recursively trigger
+     * the session authenticator.
+     */
+    fun createAuthApi(
+        baseUrl: String = defaultBaseUrl(),
+        client: OkHttpClient = createOkHttpClient(),
+    ): AuthApi = createRetrofit(baseUrl, client).create(AuthApi::class.java)
+
+    /**
+     * Authenticated client: plain client plus Bearer-header interceptor and
+     * 401-driven single-flight refresh. Share the plain client's pools via
+     * [plainClient].newBuilder-derived construction here.
+     */
+    fun createAuthenticatedClient(
+        gateway: SessionTokenGateway,
+        plainClient: OkHttpClient = createOkHttpClient(),
+    ): OkHttpClient =
+        plainClient.newBuilder()
+            .addInterceptor(AuthorizationInterceptor(gateway))
+            .authenticator(SessionAuthenticator(gateway))
+            .build()
+
+    fun createAuthedUserApi(
+        authenticatedClient: OkHttpClient,
+        baseUrl: String = defaultBaseUrl(),
+    ): AuthedUserApi = createRetrofit(baseUrl, authenticatedClient).create(AuthedUserApi::class.java)
+
+    fun createAuthFailureMapper(): AuthFailureMapper = AuthFailureMapper(json)
+
+    private fun createRetrofit(baseUrl: String, client: OkHttpClient): Retrofit {
         val normalizedBaseUrl = if (baseUrl.endsWith('/')) baseUrl else "$baseUrl/"
         return Retrofit.Builder()
             .baseUrl(normalizedBaseUrl)
             .client(client)
             .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
             .build()
-            .create(SearchApi::class.java)
     }
-
-    fun createFailureMapper(): SearchFailureMapper = SearchFailureMapper(json)
 }
